@@ -25,12 +25,13 @@
                 <hr>
                 <% campground.comments.forEach(function(comment) { %>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 break-line-parent">
                             <strong><%= comment.author %></strong>
                             <span class="pull-right">10 days ago</span>
                             <p>
                                 <strong></strong> - <%= comment.text %>
                             </p>
+                            <div class="break-line"></div>
                         </div>
                     </div>
                 <% }); %>

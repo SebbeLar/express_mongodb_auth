@@ -19,7 +19,6 @@
     "passport-local-mongoose": "^4.0.0"
   },
   "devDependencies": {
-    "jscs": "^2.10.1",
-    "jshint": "^2.9.1"
+    "eslint": "^2.4.0"
   }
 }
