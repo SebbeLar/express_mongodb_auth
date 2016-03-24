@@ -32,3 +32,8 @@
 .caption-full p {
     margin-top: 10px;
 }
+
+.delete {
+    display: inline;
+    margin-left: 5px;
+}
