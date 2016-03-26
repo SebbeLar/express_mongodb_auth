@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/main.css" />
   </head>
   <body>
-  
+
   <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -19,7 +19,7 @@
                     <li><a href="/login">Login</a></li>
                     <li><a href="/register">Sign up</a></li>
                     <% } else { %>
-                    <li><a href="#"> <%= currentUser.username %> </a></li>
+                    <li><a href="#"> Signed in as <%= currentUser.username %> </a></li>
                     <li><a href="/logout">Log out</a></li>
                     <% } %>
                 </ul>
