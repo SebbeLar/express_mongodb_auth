@@ -35,11 +35,13 @@
                         <div class="col-md-12 break-line-parent">
                             <strong><%= comment.author.username %></strong>
                             <span class="pull-right">10 days ago</span>
-                            <form class="pull-right comment-button" action="/campgrounds/<%= campground.id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-                                <button class="btn btn-danger btn-xs">Delete</button>
-                            </form>
-                            <a class="btn btn-warning btn-xs pull-right comment-button" 
-                               href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">Edit</a> 
+                            <% if(currentUser && comment.author.id.equals(currentUser._id)) { %>
+                                <form class="pull-right comment-button" action="/campgrounds/<%= campground.id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                                    <button class="btn btn-danger btn-xs">Delete</button>
+                                </form>                            
+                                <a class="btn btn-warning btn-xs pull-right comment-button" 
+                                href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">Edit</a>
+                            <% } %> 
                             <p>
                                 - <%= comment.text %>
                             </p>
