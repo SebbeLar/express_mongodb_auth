@@ -45,24 +45,13 @@ router.get('/:id', function (req, res) {
     });
 });
 
-router.get('/:id/edit', function (req, res) {
-    if (req.isAuthenticated()) {
-        Campground.findById(req.params.id, function (err, foundCamp) {
-            if (err) {
-                console.log(err);
-                res.redirect('/campgrounds');
-            } else {
-                if (foundCamp.author.id.equals(req.user._id)) {
-                    res.render('campgrounds/edit', { campground: foundCamp });
-                }
-            }
-        });
-    } else {
-        res.send('Not logged in!');
-    }
+router.get('/:id/edit', checkCampgroundOwnership, function (req, res) {
+    Campground.findById(req.params.id, function (err, foundCamp) {
+        res.render('campgrounds/edit', { campground: foundCamp });
+    });
 });
 
-router.put('/:id', function (req, res) {
+router.put('/:id', checkCampgroundOwnership, function (req, res) {
     Campground.findByIdAndUpdate(req.params.id, req.body.campground, function (err, update) {
         if (err) {
             res.redirect('/campgrounds');
@@ -72,7 +61,7 @@ router.put('/:id', function (req, res) {
     })
 });
 
-router.delete('/:id', function (req, res) {
+router.delete('/:id', checkCampgroundOwnership, function (req, res) {
     Campground.findByIdAndRemove(req.params.id, function (err) {
         if (err) {
             res.redirect('/campgrounds');
@@ -87,6 +76,25 @@ function isLoggedIn(req, res, next) {
         return next();
     }
     res.redirect('/login');
+}
+
+function checkCampgroundOwnership(req, res, next) {
+    if (req.isAuthenticated()) {
+        Campground.findById(req.params.id, function (err, foundCamp) {
+            if (err) {
+                console.log(err);
+                res.redirect('back');
+            } else {
+                if (foundCamp.author.id.equals(req.user._id)) {
+                    next();
+                } else {
+                    res.redirect('back');
+                }
+            }
+        });
+    } else {
+        res.redirect('back');
+    }
 }
 
 module.exports = router;
