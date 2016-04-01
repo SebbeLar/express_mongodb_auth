@@ -50,8 +50,9 @@ app.use(indexRoutes);
 app.use('/campgrounds', campgroundRoutes);
 app.use('/campgrounds/:id/comments', commentRoutes);
 
-app.listen(8080, function () {
-    console.log('Server is listening on port 8080');
+var PORT = process.env.PORT || 8080;
+app.listen(PORT, process.env.IP, function () {
+    console.log('Server is listening on port ' + PORT);
 });
 
 
